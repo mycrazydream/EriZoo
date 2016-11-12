@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using WebApplication1.Models;
+using EriZoo.Models;
 
-namespace WebApplication1.Controllers
+namespace EriZoo.Controllers
 {
     [Authorize]
     public class AccountController : Controller

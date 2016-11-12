@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebApplication1.Controllers
+namespace EriZoo.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
+            ViewBag.Message = "Welcome to ERI Zoo's Animals";
             return View();
         }
 
