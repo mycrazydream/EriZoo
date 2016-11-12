@@ -15,13 +15,13 @@ namespace EriZoo.Controllers
     {
         private ZooContext db = new ZooContext();
 
-        // GET: Animals
+        // GET: Animal
         public ActionResult Index()
         {
             return View(db.Animals.ToList());
         }
 
-        // GET: Animals/Details/5
+        // GET: Animal/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
