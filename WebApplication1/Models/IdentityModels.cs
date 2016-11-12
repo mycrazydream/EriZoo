@@ -21,7 +21,7 @@ namespace EriZoo.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("ZooContext", throwIfV1Schema: false)
         {
         }
 
