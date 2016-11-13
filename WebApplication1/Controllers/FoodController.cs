@@ -18,7 +18,7 @@ namespace EriZoo.Controllers
         // GET: Food
         public ActionResult Index()
         {
-            var foods = db.Foods.Include(f => f.Animals).Include(f => f.Vendors);
+            var foods = db.Foods.Include(f => f.Animal).Include(f => f.Vendor);
             return View(foods.ToList());
         }
 

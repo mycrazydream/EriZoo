@@ -7,20 +7,20 @@ using EriZoo.Models;
 
 namespace EriZoo.DAL
 {
-    public class ZooInitializer : DropCreateDatabaseIfModelChanges<ZooContext>
+    public class ZooInitializer : DropCreateDatabaseAlways<ZooContext>
     {
         protected override void Seed(ZooContext context)
         {
             var animals = new List<Animal>
             {
-            new Animal{ID=1,Name="Giraffe",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2005-09-21"),BirthDate=DateTime.Parse("2005-09-21")},
-            new Animal{ID=2,Name="Black Widow",Group="Invertebrate",SubGroup="Arachnid",AcquisitionDate=DateTime.Parse("2016-10-01"),BirthDate=DateTime.Parse("2016-10-01")},
-            new Animal{ID=3,Name="Snake",Group="Vertebrate",SubGroup="Reptile",AcquisitionDate=DateTime.Parse("2015-03-01"),BirthDate=DateTime.Parse("2015-03-01")},
-            new Animal{ID=4,Name="Elephant",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2007-10-06"),BirthDate=DateTime.Parse("2005-09-01")},
-            new Animal{ID=5,Name="Lion",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2012-12-01"),BirthDate=DateTime.Parse("2010-05-02")},
-            new Animal{ID=6,Name="Tiger",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2010-09-01"),BirthDate=DateTime.Parse("2005-04-11")},
-            new Animal{ID=7,Name="Panda",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2003-11-01"),BirthDate=DateTime.Parse("2003-11-01")},
-            new Animal{ID=8,Name="Raptor",Group="Vertebrate",SubGroup="Bird",AcquisitionDate=DateTime.Parse("2015-09-01"),BirthDate=DateTime.Parse("2015-09-01")}
+            new Animal{Name="Giraffe",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2005-09-21"),BirthDate=DateTime.Parse("2005-09-21")},
+            new Animal{Name="Black Widow",Group="Invertebrate",SubGroup="Arachnid",AcquisitionDate=DateTime.Parse("2016-10-01"),BirthDate=DateTime.Parse("2016-10-01")},
+            new Animal{Name="Snake",Group="Vertebrate",SubGroup="Reptile",AcquisitionDate=DateTime.Parse("2015-03-01"),BirthDate=DateTime.Parse("2015-03-01")},
+            new Animal{Name="Elephant",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2007-10-06"),BirthDate=DateTime.Parse("2005-09-01")},
+            new Animal{Name="Lion",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2012-12-01"),BirthDate=DateTime.Parse("2010-05-02")},
+            new Animal{Name="Tiger",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2010-09-01"),BirthDate=DateTime.Parse("2005-04-11")},
+            new Animal{Name="Panda",Group="Vertebrate",SubGroup="Mammal",AcquisitionDate=DateTime.Parse("2003-11-01"),BirthDate=DateTime.Parse("2003-11-01")},
+            new Animal{Name="Raptor",Group="Vertebrate",SubGroup="Bird",AcquisitionDate=DateTime.Parse("2015-09-01"),BirthDate=DateTime.Parse("2015-09-01")}
             };
             animals.ForEach(a => context.Animals.Add(a));
             // not necessary to call the SaveChanges method after each group of entities but it helps locate problem if an error occurs
