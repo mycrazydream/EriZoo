@@ -7,7 +7,7 @@ using EriZoo.Models;
 
 namespace EriZoo.DAL
 {
-    public class ZooInitializer : DropCreateDatabaseAlways<ZooContext>
+    public class ZooInitializer : DropCreateDatabaseIfModelChanges<ZooContext>
     {
         protected override void Seed(ZooContext context)
         {

@@ -11,7 +11,7 @@ namespace EriZoo.Models
         [Required]
         public string Name { get; set; }
         public int Calories { get; set; }
-        [ForeignKey("Vendor")]
+        
         public int VendorID { get; set; }
         [ForeignKey("Animal")]
         public int AnimalID { get; set; }

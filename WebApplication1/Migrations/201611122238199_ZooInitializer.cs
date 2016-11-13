@@ -32,7 +32,6 @@ namespace EriZoo.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Animal", t => t.AnimalID, cascadeDelete: true)
-                .ForeignKey("dbo.Vendor", t => t.VendorID, cascadeDelete: true)
                 .Index(t => t.VendorID)
                 .Index(t => t.AnimalID);
             
