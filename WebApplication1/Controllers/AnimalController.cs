@@ -112,12 +112,18 @@ namespace EriZoo.Controllers
         }
 
         // GET: Animals/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
+            }
+
             Animal animal = db.Animals.Find(id);
             if (animal == null)
             {
@@ -127,13 +133,21 @@ namespace EriZoo.Controllers
         }
 
         // POST: Animals/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            Animal animal = db.Animals.Find(id);
-            db.Animals.Remove(animal);
-            db.SaveChanges();
+            try
+            {
+                Animal animal = db.Animals.Find(id);
+                db.Animals.Remove(animal);
+                db.SaveChanges();
+            }
+            catch (DataException)
+            {
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+
             return RedirectToAction("Index");
         }
 

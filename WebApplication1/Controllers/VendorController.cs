@@ -128,13 +128,21 @@ namespace EriZoo.Controllers
         }
 
         // POST: Vendor/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            Vendor vendor = db.Vendors.Find(id);
-            db.Vendors.Remove(vendor);
-            db.SaveChanges();
+            try
+            {
+                Vendor vendor = db.Vendors.Find(id);
+                db.Vendors.Remove(vendor);
+                db.SaveChanges();
+            }
+            catch (DataException)
+            {
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
+
             return RedirectToAction("Index");
         }
 
