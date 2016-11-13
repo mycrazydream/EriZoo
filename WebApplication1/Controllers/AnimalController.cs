@@ -16,6 +16,50 @@ namespace EriZoo.Controllers
         private ZooContext db = new ZooContext();
 
         // GET: Animal
+        public ActionResult Index(string sortOrder)
+        {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ADateSortParm   = sortOrder == "ADate"      ? "ADate_desc"      : "ADate";
+            ViewBag.BDateSortParm   = sortOrder == "BDate"      ? "BDate_desc"      : "BDate";
+            ViewBag.GroupSortParm   = sortOrder == "Group"      ? "Group_desc"      : "Group";
+            ViewBag.SubGroupParm    = sortOrder == "SubGroup"   ? "SubGroup_desc"   : "SubGroup";
+            var animals = from a in db.Animals
+                           select a;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    animals = animals.OrderByDescending(a => a.Name);
+                    break;
+                case "ADate":
+                    animals = animals.OrderBy(a => a.AcquisitionDate);
+                    break;
+                case "ADate_desc":
+                    animals = animals.OrderByDescending(a => a.AcquisitionDate);
+                    break;
+                case "BDate":
+                    animals = animals.OrderBy(a => a.BirthDate);
+                    break;
+                case "BDate_desc":
+                    animals = animals.OrderByDescending(a => a.BirthDate);
+                    break;
+                case "Group":
+                    animals = animals.OrderBy(a => a.Group);
+                    break;
+                case "Group_desc":
+                    animals = animals.OrderByDescending(a => a.Group);
+                    break;
+                case "SubGroup":
+                    animals = animals.OrderBy(a => a.SubGroup);
+                    break;
+                case "SubGroup_desc":
+                    animals = animals.OrderByDescending(a => a.SubGroup);
+                    break;
+                default:
+                    animals = animals.OrderBy(a => a.Name);
+                    break;
+            }
+            return View(animals.ToList());
+        }
         public ActionResult Index()
         {
             return View(db.Animals.ToList());
