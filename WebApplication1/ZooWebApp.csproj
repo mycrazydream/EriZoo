@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201611122238199_ZooInitializer.Designer.cs">
       <DependentUpon>201611122238199_ZooInitializer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611130042250_ZooInitializer1.cs" />
+    <Compile Include="Migrations\201611130042250_ZooInitializer1.Designer.cs">
+      <DependentUpon>201611130042250_ZooInitializer1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Animal.cs" />
@@ -308,6 +312,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611122238199_ZooInitializer.resx">
       <DependentUpon>201611122238199_ZooInitializer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611130042250_ZooInitializer1.resx">
+      <DependentUpon>201611130042250_ZooInitializer1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
