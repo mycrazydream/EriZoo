@@ -91,7 +91,7 @@ namespace EriZoo.Controllers
         // POST: Food/Edit/5
         // TODO:  If only individual fields need to be updated in the database,
         // set the entity to Unchanged and set individual fields to Modified
-        [HttpPost, ActionName("Edit")]
+        [HttpPost, ActionName("Edit")] //renamed the method EditPost to avoid conflict with other Edit action
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
         {
