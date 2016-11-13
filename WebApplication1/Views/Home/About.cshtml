@@ -1,8 +1,26 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model IEnumerable<EriZoo.ViewModels.AnimalGroup>
 
-<p>The ERI Zoo was created in 2016 by Brent Ransom in an effort to recreate viable extinct animals from 
-    fossilized amber containing preserved mosquito DNA.</p>
+<h2>@ViewBag.Title</h2>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>
+            Animal
+        </th>
+        <th>
+            #
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.AnimalName
+            </td>
+            <td>
+                @item.AnimalCount
+            </td>
+        </tr>
+    }
+</table>

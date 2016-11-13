@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using EriZoo.DAL;
 using EriZoo.Models;
+using X.PagedList;
 
 namespace EriZoo.Controllers
 {
@@ -16,15 +17,34 @@ namespace EriZoo.Controllers
         private ZooContext db = new ZooContext();
 
         // GET: Animal
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.ADateSortParm   = sortOrder == "ADate"      ? "ADate_desc"      : "ADate";
             ViewBag.BDateSortParm   = sortOrder == "BDate"      ? "BDate_desc"      : "BDate";
             ViewBag.GroupSortParm   = sortOrder == "Group"      ? "Group_desc"      : "Group";
             ViewBag.SubGroupParm    = sortOrder == "SubGroup"   ? "SubGroup_desc"   : "SubGroup";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+
             var animals = from a in db.Animals
                            select a;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                animals = animals.Where(a => a.Name.ToUpper().Contains(searchString.ToUpper()));
+            }
+
             switch (sortOrder)
             {
                 case "name_desc":
@@ -58,7 +78,10 @@ namespace EriZoo.Controllers
                     animals = animals.OrderBy(a => a.Name);
                     break;
             }
-            return View(animals.ToList());
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(animals.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Animal/Details/5

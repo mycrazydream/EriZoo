@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using EriZoo.DAL;
+using EriZoo.ViewModels;
 
 namespace EriZoo.Controllers
 {
     public class HomeController : Controller
     {
+        private ZooContext db = new ZooContext();
+
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ERI Zoo's Animals";
@@ -16,9 +20,16 @@ namespace EriZoo.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Welcome to everything you wanted to know about the ERI Zoo";
+            ViewBag.Title = "ERI Zoo Animal Statistics";
 
-            return View();
+            IQueryable<AnimalGroup> data = from animal in db.Animals
+                                                   group animal by animal.Name into animalGroup
+                                                   select new AnimalGroup()
+                                                   {
+                                                       AnimalName = animalGroup.Key,
+                                                       AnimalCount = animalGroup.Count()
+                                                   };
+            return View(data.ToList());
         }
 
         public ActionResult Contact()
@@ -26,6 +37,12 @@ namespace EriZoo.Controllers
             ViewBag.Message = "Contact Us";
 
             return View();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
