@@ -89,21 +89,37 @@ namespace EriZoo.Controllers
         }
 
         // POST: Food/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        // TODO:  If only individual fields need to be updated in the database,
+        // set the entity to Unchanged and set individual fields to Modified
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Calories,VendorID,AnimalID")] Food food)
+        public ActionResult EditPost(int? id)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(food).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.AnimalID = new SelectList(db.Animals, "ID", "Name", food.AnimalID);
-            ViewBag.VendorID = new SelectList(db.Vendors, "ID", "Name", food.VendorID);
-            return View(food);
+
+            var foodToUpdate = db.Foods.Find(id);
+
+            if (TryUpdateModel(foodToUpdate, "", new string[] { "Name", "Calories", "VendorID", "AnimalID" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (DataException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes to animal. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+
+            ViewBag.AnimalID = new SelectList(db.Animals, "ID", "Name", foodToUpdate.AnimalID);
+            ViewBag.VendorID = new SelectList(db.Vendors, "ID", "Name", foodToUpdate.VendorID);
+
+            return View(foodToUpdate);
         }
 
         // GET: Food/Delete/5

@@ -82,19 +82,31 @@ namespace EriZoo.Controllers
         }
 
         // POST: Animals/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Group,SubGroup,AcquisitionDate,BirthDate")] Animal animal)
+        public ActionResult EditPost(int? id)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(animal).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(animal);
+
+            var animalToUpdate = db.Animals.Find(id);
+
+            if (TryUpdateModel(animalToUpdate, "", new string[] { "Name", "Group", "SubGroup", "AcquisitionDate", "BirthDate"}))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (DataException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes to animal. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            return View(animalToUpdate);
         }
 
         // GET: Animals/Delete/5
