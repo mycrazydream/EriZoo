@@ -49,13 +49,20 @@ namespace EriZoo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,Phone,Address,Address2")] Vendor vendor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Vendors.Add(vendor);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Vendors.Add(vendor);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DataException d)
+            {
+                ModelState.AddModelError(d.ToString(), "Unable to create Vendor record. If the problem persists see your local technician.");
+            }
+            
             return View(vendor);
         }
 

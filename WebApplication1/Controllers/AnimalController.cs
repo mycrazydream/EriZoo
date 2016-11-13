@@ -47,13 +47,20 @@ namespace EriZoo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Group,SubGroup,AcquisitionDate,BirthDate")] Animal animal)
+        public ActionResult Create([Bind(Include = "Name,Group,SubGroup,AcquisitionDate,BirthDate")] Animal animal)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Animals.Add(animal);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Animals.Add(animal);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DataException d)
+            {
+                ModelState.AddModelError(d.ToString(), "Unable to create Animal record. If the problem persists see your local technician.");
             }
 
             return View(animal);

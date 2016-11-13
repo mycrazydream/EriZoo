@@ -19,4 +19,5 @@ namespace EriZoo.Models
         public virtual Vendor Vendor { get; set; }
         public virtual Animal Animal { get; set; }
     }
+
 }
