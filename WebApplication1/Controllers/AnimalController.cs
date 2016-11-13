@@ -60,10 +60,6 @@ namespace EriZoo.Controllers
             }
             return View(animals.ToList());
         }
-        public ActionResult Index()
-        {
-            return View(db.Animals.ToList());
-        }
 
         // GET: Animal/Details/5
         public ActionResult Details(int? id)
