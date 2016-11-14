@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EriZoo.DAL;
 using EriZoo.Models;
-using X.PagedList;
+using PagedList;
+using System.Data.SqlClient;
+using System.Collections;
 
 namespace EriZoo.Controllers
 {
@@ -92,10 +93,14 @@ namespace EriZoo.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Animal animal = db.Animals.Find(id);
+            
             if (animal == null)
             {
                 return HttpNotFound();
             }
+            var sql = @"GetFoodForAnimal @AnimalID";
+            var foodForAnimal = db.Database.SqlQuery<Food>(sql, new SqlParameter("@AnimalID",id));
+            animal.Foods = foodForAnimal.ToList();
             return View(animal);
         }
 

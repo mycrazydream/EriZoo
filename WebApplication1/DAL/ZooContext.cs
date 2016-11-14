@@ -8,6 +8,7 @@ namespace EriZoo.DAL
     {
         public ZooContext() : base("ZooContext")
         {
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Animal> Animals { get; set; }
