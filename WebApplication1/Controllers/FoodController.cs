@@ -18,7 +18,7 @@ namespace EriZoo.Controllers
         // GET: Food
         public ActionResult Index()
         {
-            var foods = db.Foods.Include(f => f.Animal).Include(f => f.Vendor);
+            var foods = db.Foods.Include(f => f.Vendor);
             return View(foods.ToList());
         }
 
@@ -66,7 +66,7 @@ namespace EriZoo.Controllers
                 ModelState.AddModelError(d.ToString(), "Unable to create Food record. If the problem persists see your local technician.");
             }
 
-            ViewBag.AnimalID = new SelectList(db.Animals, "ID", "Name", food.AnimalID);
+            //ViewBag.AnimalID = new SelectList(db.Animals, "ID", "Name", food.AnimalID);
             ViewBag.VendorID = new SelectList(db.Vendors, "ID", "Name", food.VendorID);
             return View(food);
         }
@@ -83,7 +83,7 @@ namespace EriZoo.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AnimalID = new SelectList(db.Animals, "ID", "Name", food.AnimalID);
+            //ViewBag.AnimalID = new SelectList(db.Animals, "ID", "Name", food.AnimalID);
             ViewBag.VendorID = new SelectList(db.Vendors, "ID", "Name", food.VendorID);
             return View(food);
         }
@@ -116,7 +116,7 @@ namespace EriZoo.Controllers
                 }
             }
 
-            ViewBag.AnimalID = new SelectList(db.Animals, "ID", "Name", foodToUpdate.AnimalID);
+            //ViewBag.AnimalID = new SelectList(db.Animals, "ID", "Name", foodToUpdate.AnimalID);
             ViewBag.VendorID = new SelectList(db.Vendors, "ID", "Name", foodToUpdate.VendorID);
 
             return View(foodToUpdate);

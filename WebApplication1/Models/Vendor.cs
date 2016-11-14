@@ -8,7 +8,6 @@ namespace EriZoo.Models
     public class Vendor
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }

@@ -13,6 +13,7 @@ namespace EriZoo.DAL
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Food> Foods { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<ZooKeeper> ZooKeepers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

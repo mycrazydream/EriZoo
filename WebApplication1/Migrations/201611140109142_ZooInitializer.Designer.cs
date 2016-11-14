@@ -7,18 +7,18 @@ namespace EriZoo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class ZooInitializer1 : IMigrationMetadata
+    public sealed partial class ZooInitializer : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ZooInitializer1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ZooInitializer));
         
         string IMigrationMetadata.Id
         {
-            get { return "201611130042250_ZooInitializer1"; }
+            get { return "201611140109142_ZooInitializer"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

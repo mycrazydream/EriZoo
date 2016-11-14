@@ -19,8 +19,8 @@ namespace EriZoo.Controllers
         // GET: Animal
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.CurrentSort     = sortOrder;
+            ViewBag.NameSortParm    = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.ADateSortParm   = sortOrder == "ADate"      ? "ADate_desc"      : "ADate";
             ViewBag.BDateSortParm   = sortOrder == "BDate"      ? "BDate_desc"      : "BDate";
             ViewBag.GroupSortParm   = sortOrder == "Group"      ? "Group_desc"      : "Group";
